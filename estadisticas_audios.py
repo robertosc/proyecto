@@ -1,6 +1,12 @@
 import pandas as pd
 import sys
 
+'''
+Este programa se corre por línea de comandos. Se debe pasar el comando "$python3 filename", donde filename es la dirección
+en la que se encunetra el archivo csv que se desea analizar. Al correrlo de esta manera se obtiene el tiempo promedio de 
+habla de cada participante y su tiempo de participación total.
+'''
+
 def tiempo_total(lista_tiempos, lista_hablantes, index, dict_total):
 	'''
 	Calcula el tiempo total que habla cada persona del programa
