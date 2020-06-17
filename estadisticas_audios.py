@@ -55,29 +55,27 @@ def dict_total_todos(df, lista_hablantes):
 		tiempo_total(lista_tiempos, lista_hablantes, j, total) #Añade elementos a total
 	return total
 
-def genero(df, lista_hablantes):
+def genero(df, lista_hablantes, dict_tiempos):
 	'''
 	Genera una lista con los hablantes hombres y hablantes mujeres.
 	'''
 	hombres = []
 	mujeres = []
-	tiempos_h = []
-	tiempos_m = []
+	total = 0
+    
 	for i in range(len(lista_hablantes)-1):
+		total += dict_tiempos[lista_hablantes[i]]
 		if lista_hablantes[i][len(lista_hablantes[i])-1] == "M" or lista_hablantes[i][len(lista_hablantes[i])-1] == "m":
-			mujeres.append(lista_hablantes[i])
+			mujeres.append(dict_tiempos[lista_hablantes[i]])
 		elif lista_hablantes[i][len(lista_hablantes[i])-1] == "H" or lista_hablantes[i][len(lista_hablantes[i])-1] == "h":
-			hombres.append(lista_hablantes[i])
-		for j in range(len(df)-1):
-			if df['data2'][i] in hombres:
-				tiempos_h.append(df['data1'][j] - df['data0'][j])
-			else:
-				tiempos_m.append(df['data1'][j] - df['data0'][j])
+			hombres.append(dict_tiempos[lista_hablantes[i]])
 
-	suma_h = sum(tiempos_h)
-	suma_m = sum(tiempos_m)
-	prom_hombres = (suma_h*100) / (suma_h + suma_m)
-	prom_mujeres = (suma_m*100) / (suma_h + suma_m)
+	#print(hombres)
+	
+	suma_h = sum(hombres)
+	suma_m = sum(mujeres)
+	prom_hombres = (suma_h*100) / (total)
+	prom_mujeres = (suma_m*100) / (total)
 	results = {"Hombres" : prom_hombres, "Mujeres" :  prom_mujeres}
 	return results
 
@@ -86,10 +84,10 @@ def multiples_archivos(argv):
 		filename = sys.argv[i]
 		df = pd.read_csv(filename, sep='\t', engine='python', header=None, prefix="data")
 		lista_hablantes = hablantes(df)
-		print("Archivo: ", sys.argv[i], "\n\nTiempo promedio de habla:\n", dict_promedio_todos(df,lista_hablantes), "\n\nTiempo total del habla:\n", dict_total_todos(df, lista_hablantes),  "\n\n")
-		print("Hombres y mujeres:" , genero(df, lista_hablantes))
-
-
+		print("Archivo: ", sys.argv[i], "\n\nCantidad de hablantes: ", len(hablantes(df)),  "\n\nTiempo promedio de intervención:\n", dict_promedio_todos(df,lista_hablantes), "\n\nTiempo total del habla:\n", dict_total_todos(df, lista_hablantes),  "\n")
+		print("\n","Hombres y mujeres:" , genero(df, lista_hablantes, dict_total_todos(df,lista_hablantes)), "\n\n")
+		print("-"*50)
+		print("\n\n\n")
 
 def main(argv):
 	multiples_archivos(argv)
