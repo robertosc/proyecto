@@ -4,4 +4,4 @@ En este repositorio se adjuntan los códigos creados para el análisis de datos 
 
 Para correrlo se utiliza el comando "$python3 estadisticas_audios.py nombre_archivo"
 
-No es necesario que los archivos tengan un nombre de columna
+No es necesario que los archivos tengan un nombre de columna. Es esencial que los hablantes tengan una etiqueta de género al final, ya sea H o M.
