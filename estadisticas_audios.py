@@ -38,7 +38,7 @@ def dict_promedio_todos(df, lista_hablantes):
 		lista_tiempos = []
 		for k in range(len(df)):
 			if df['data2'][k] == lista_hablantes[j]:
-				tiempo_habla = -df['data0'][k] + df['data1'][k]
+				tiempo_habla = abs(-df['data0'][k] + df['data1'][k])
 				lista_tiempos.append(tiempo_habla)
 		promedio(lista_tiempos, lista_hablantes, j, estadisticas)
 	return estadisticas
@@ -50,7 +50,7 @@ def dict_total_todos(df, lista_hablantes):
 		lista_tiempos = []
 		for k in range(len(df)):
 			if df['data2'][k] == lista_hablantes[j]:
-				tiempo_habla = -df['data0'][k] + df['data1'][k]
+				tiempo_habla = abs(-df['data0'][k] + df['data1'][k])
 				lista_tiempos.append(tiempo_habla)
 		tiempo_total(lista_tiempos, lista_hablantes, j, total) #Añade elementos a total
 	return total
@@ -63,8 +63,8 @@ def genero(df, lista_hablantes, dict_tiempos):
 	mujeres = []
 	total = 0
     
-	for i in range(len(lista_hablantes)-1):
-		total += dict_tiempos[lista_hablantes[i]]
+	for i in range(len(lista_hablantes)):
+		#total += dict_tiempos[lista_hablantes[i]]
 		if lista_hablantes[i][len(lista_hablantes[i])-1] == "M" or lista_hablantes[i][len(lista_hablantes[i])-1] == "m":
 			mujeres.append(dict_tiempos[lista_hablantes[i]])
 		elif lista_hablantes[i][len(lista_hablantes[i])-1] == "H" or lista_hablantes[i][len(lista_hablantes[i])-1] == "h":
@@ -74,10 +74,10 @@ def genero(df, lista_hablantes, dict_tiempos):
 	
 	suma_h = sum(hombres)
 	suma_m = sum(mujeres)
-	prom_hombres = (suma_h*100) / (total)
-	prom_mujeres = (suma_m*100) / (total)
-	results = {"Hombres" : prom_hombres, "Mujeres" :  prom_mujeres}
-	return results
+	prom_hombres = (suma_h*100) / (suma_h+suma_m)
+	prom_mujeres = (suma_m*100) / (suma_h+suma_m)
+	#results = {"Hombres" : prom_hombres, "Mujeres" :  prom_mujeres}
+	print(len(lista_hablantes), "Hombres " ,len(hombres),": ", prom_hombres, "Mujeres ", len(mujeres), ": ", prom_mujeres)
 
 def multiples_archivos(argv):
 	for i in range(1, len(sys.argv)):
