@@ -92,9 +92,4 @@ def multiples_archivos(argv):
 def main(argv):
 	multiples_archivos(argv)
 
-
-#filename = "/mnt/c/Users/rober/OneDrive/Documentos/20200312_desayunos_parte2_estadistica.segments"
-#df = pd.read_csv(filename, sep='\t', engine='python')
-
 main(sys.argv)
-#genero(df, hablantes(df))
