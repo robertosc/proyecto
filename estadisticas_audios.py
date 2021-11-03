@@ -31,9 +31,7 @@ def hablantes(df):
 	return lista_hablantes
 
 def dict_promedio_todos(df, lista_hablantes):
-
 	estadisticas = {}
-
 	for j in range(len(lista_hablantes)):
 		lista_tiempos = []
 		for k in range(len(df)):
@@ -64,19 +62,15 @@ def genero(df, lista_hablantes, dict_tiempos):
 	total = 0
     
 	for i in range(len(lista_hablantes)):
-		#total += dict_tiempos[lista_hablantes[i]]
 		if lista_hablantes[i][len(lista_hablantes[i])-1] == "M" or lista_hablantes[i][len(lista_hablantes[i])-1] == "m":
 			mujeres.append(dict_tiempos[lista_hablantes[i]])
 		elif lista_hablantes[i][len(lista_hablantes[i])-1] == "H" or lista_hablantes[i][len(lista_hablantes[i])-1] == "h":
 			hombres.append(dict_tiempos[lista_hablantes[i]])
-
-	#print(hombres)
 	
 	suma_h = sum(hombres)
 	suma_m = sum(mujeres)
 	prom_hombres = (suma_h*100) / (suma_h+suma_m)
 	prom_mujeres = (suma_m*100) / (suma_h+suma_m)
-	#results = {"Hombres" : prom_hombres, "Mujeres" :  prom_mujeres}
 	print(len(lista_hablantes), "Hombres " ,len(hombres),": ", prom_hombres, "Mujeres ", len(mujeres), ": ", prom_mujeres)
 
 def multiples_archivos(argv):
